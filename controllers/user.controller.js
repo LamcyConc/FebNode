@@ -25,6 +25,20 @@ const createUser = async (req, res) => {
 
         const renderMail = await mailSender("welcomeMail.ejs", { firstName })
 
+        let mailOptions = {
+            from: process.env.NODE_MAIL,
+            bcc: [email, "carawoodens@gmail.com"],
+            subject: `Welcome, ${firstName}`,
+            html: renderMail
+        }
+
+        try {
+            const info = await transporter.sendMail(mailOptions);
+            console.log("Email sent: " + info.response);
+        } catch (mailError) {
+            console.error("Error sending welcome email:", mailError);
+        }
+
         const token = await jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "5h" });
         res.status(201).send({
             message: "User created successfully",
@@ -33,21 +47,6 @@ const createUser = async (req, res) => {
                 email,
                 firstName
             }, token
-        });
-
-        let mailOptions = {
-            from: process.env.NODE_MAIL,
-            bcc: [email, "carawoodens@gmail.com"],
-            subject: `Welcome, ${firstName}`,
-            html: renderMail
-        }
-
-        transporter.sendMail(mailOptions, function (error, info) {
-            if (error) {
-                console.log(error);
-            } else {
-                console.log('Email sent: ' + info.response);
-            }
         });
 
 

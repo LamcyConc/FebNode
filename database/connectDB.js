@@ -16,7 +16,7 @@ const connectDB= async()=>{
     .catch((err)=>{
         connectionPromise=null;
         console.log(err);
-        throw error;
+        throw err;
        
     })
 
