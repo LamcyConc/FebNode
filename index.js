@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(cors())
 const UserRouter = require('./routers/user.routes');
 const ProductRouter = require('./routers/product.routes');
-const connectDB = require("./database/connectDB");
+const connectDB = require('./database/connectDB');
 app.use('/api/v1', ProductRouter)
 app.use('/api/v1', UserRouter)
 
