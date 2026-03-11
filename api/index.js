@@ -1,1 +1,1 @@
-module.exports("../index.js")
+module.exports = require("../index.js")
