@@ -8,7 +8,7 @@ const connectDB= async()=>{
     if (connectionPromise) return connectionPromise
 
     connectionPromise = mongoose
-    .connect(process.env.MONGODB_URI)
+    .connect(process.env.DATABASE_URI)
     .then(()=>{
         console.log("Database connected successfully");
        
